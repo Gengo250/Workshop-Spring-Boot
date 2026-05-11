@@ -18,6 +18,8 @@ import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepository;
 import com.educandoweb.course.repositories.ProductRepository;
+import com.educandoweb.course.entities.OrdemItem;
+import com.educandoweb.course.repositories.OrderItemRepository;
 
 @Configuration
 @Profile("test")
@@ -34,6 +36,9 @@ public class TestConfig implements CommandLineRunner {
 
   @Autowired
   private ProductRepository productRepository;
+
+  @Autowired
+  private OrderItemRepository orderItemRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -68,5 +73,12 @@ public class TestConfig implements CommandLineRunner {
 
     userRepository.saveAll(Arrays.asList(u1, u2));
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+    OrdemItem oi1 = new OrdemItem(o1, p1, 2, p1.getPrice());
+    OrdemItem oi2 = new OrdemItem(o1, p3, 1, p3.getPrice());
+    OrdemItem oi3 = new OrdemItem(o2, p3, 2, p3.getPrice());
+    OrdemItem oi4 = new OrdemItem(o3, p5, 2, p5.getPrice());
+
+    orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
   }
 }
